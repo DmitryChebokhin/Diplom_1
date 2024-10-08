@@ -1,43 +1,39 @@
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import praktikum.Bun;
-import praktikum.Burger;
-import java.util.ArrayList;
-import java.util.List;
-import static org.junit.Assert.assertEquals;
 
-@RunWith(Parameterized.class)
+import java.util.Random;
+
 public class BunTests {
-    private final String name;
-    private final float price;
 
-    public BunTests(String name, float price ){
-        this.name = name;
-        this.price = price;
-    }
+    private String bunName;
+    private float bunPrice;
+    private Random random;
 
-    @Parameterized.Parameters
-    public static Object[][] Buns() {
-        return new Object[][]{
-                {"",0},
-                {"big",12},
-                {"bigmag",1234},
-                {"bigmagbigmagbigmagbigmag",12345678},
-                {"^#(&@#*)#*@(*#", -123},
-        };
+    @Before
+    public void setUp() {
+        random = new Random();
+        bunName = RandomStringUtils.randomAlphabetic(5, 15);
+        bunPrice = random.nextFloat() + 10;
     }
 
     @Test
-    public void SetBunReturnOurBunTests(){
-        Burger burger = new Burger();
-        burger.setBuns(new Bun(name, price));
-        List<String> expected = new ArrayList<>();
-        expected.add(name);
-        expected.add(String.valueOf(price));
-        List<String> actual = new ArrayList<>();
-        actual.add(burger.bun.getName());
-        actual.add(String.valueOf(burger.bun.getPrice()));
-        assertEquals(expected ,actual);
+    public void testGetName() {
+        Bun bun = createBun();
+        String actualName = bun.getName();
+        Assert.assertEquals(bunName, actualName);
+    }
+
+    @Test
+    public void testGetPrice() {
+        Bun bun = createBun();
+        float actualPrice = bun.getPrice();
+        Assert.assertEquals(bunPrice, actualPrice, 0.001);
+    }
+
+    private Bun createBun() {
+        return new Bun(bunName, bunPrice);
     }
 }
