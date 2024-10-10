@@ -8,6 +8,8 @@ import java.util.Random;
 
 public class BunTests {
 
+    private final double DELTA = 0.001;
+
     private String bunName;
     private float bunPrice;
     private Random random;
@@ -30,7 +32,7 @@ public class BunTests {
     public void testGetPrice() {
         Bun bun = createBun();
         float actualPrice = bun.getPrice();
-        Assert.assertEquals(bunPrice, actualPrice, 0.001);
+        Assert.assertEquals(bunPrice, actualPrice, DELTA);
     }
 
     private Bun createBun() {

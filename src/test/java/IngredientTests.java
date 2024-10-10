@@ -7,6 +7,9 @@ import praktikum.IngredientType;
 import java.util.Random;
 
 public class IngredientTests {
+
+    private final double DELTA = 0.001;
+
     Random random = new Random();
     public IngredientType type = IngredientType.SAUCE;
     public String name = RandomStringUtils.randomAlphabetic(5,15);
@@ -27,6 +30,6 @@ public class IngredientTests {
     @Test
     public void testPrice(){
         Ingredient ingredient = new Ingredient(type, name, price);
-        Assert.assertEquals(price, ingredient.getPrice(), 0.001);
+        Assert.assertEquals(price, ingredient.getPrice(), DELTA);
     }
 }
